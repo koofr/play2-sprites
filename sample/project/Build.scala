@@ -20,7 +20,7 @@ object ApplicationBuild extends Build {
         genSpritesSettings
   ).settings(
     spritesSrcImages <<= baseDirectory( (base: File) => base / "public/images/sprites" * "*.png" ),
-      spritesDestImage <<= baseDirectory( (base: File) => base / "public/images/sprites.png" ),
+    spritesDestImage <<= baseDirectory( (base: File) => base / "public/images/sprites.png" ),
     spritesCssSpritePath := "../images/sprites.png",
     spritesCssClassPrefix := "",
     spritesDestCss <<= baseDirectory( (base: File) => base / "app/assets/stylesheets/_sprites.less" ),
