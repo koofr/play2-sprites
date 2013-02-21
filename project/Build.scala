@@ -10,6 +10,6 @@ object Play2SpritesPlugin extends Build {
     organization := "net.koofr",
     version := "0.1.0-SNAPSHOT",
     sbtPlugin := true,
-    scalaVersion := "2.9.1"
+    scalaVersion := "2.9.2"
   )
 }
