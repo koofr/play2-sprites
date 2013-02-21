@@ -25,8 +25,9 @@ object ApplicationBuild extends Build {
     spritesCssClassPrefix := "",
     spritesDestCss <<= baseDirectory( (base: File) => base / "app/assets/stylesheets/_sprites.less" ),
 
-    resourceGenerators in Compile <+= spritesGen,
-    resourceGenerators in Compile ~= { gens => gens.last +: gens.init }
+    resourceGenerators in Compile <<= (resourceGenerators in Compile, spritesGen) { (gens, spritesGen) =>
+      spritesGen +: gens
+    }
   )
 
 }

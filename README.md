@@ -39,11 +39,9 @@ Now add following settings:
     spritesCssSpritePath := "../images/sprites.png",
     spritesDestCss <<= baseDirectory( (base: File) => base / "public/stylesheets/sprites.css" )
 
-    resourceGenerators in Compile <+= spritesGen,
-
-If you use Less, `spriteGen` must be executed before Play's `LessCompiler`:
-
-    resourceGenerators in Compile ~= { gens => gens.last +: gens.init }
+    resourceGenerators in Compile <<= (resourceGenerators in Compile, spritesGen) { (gens, spritesGen) =>
+      spritesGen +: gens
+    }
 
 Full example can be found in sample application.
 
