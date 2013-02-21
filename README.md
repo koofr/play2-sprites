@@ -2,15 +2,27 @@
 
 play2-sprites is an sbt plugin that generates sprites from images.
 
-By default, CSS classes will be named by file names (`my_icon.png` -> `.my-icon`).
+CSS classes will be named by file names (`my_icon.png` -> `.my-icon`) by default.
+
+## Example
+
+http://play2-sprites-demo.herokuapp.com/
+
+**CSS file:**
+
+http://play2-sprites-demo.herokuapp.com/assets/stylesheets/style.css
+
+**Sprite image:**
+
+http://play2-sprites-demo.herokuapp.com/assets/images/sprites.png
 
 ## Usage
 
 Add following lines to your `project/plugins.sbt` file:
 
-    resolvers += Resolver.url("Github repo", url("http://bancek.github.com/maven-repo/releases/"))(Resolver.ivyStylePatterns)
+    resolvers += Resolver.url("Github repo", url("http://koofr.github.com/repo/releases/"))(Resolver.ivyStylePatterns)
 
-    addSbtPlugin("net.koofr" % "play2-sprites" % "0.1.0-SNAPSHOT")
+    addSbtPlugin("net.koofr" % "play2-sprites" % "0.1.0")
 
 Add following import to your `Build.scala` file:
 
@@ -68,3 +80,7 @@ Sample Play application is available in `sample` directory.
 To build the plugin locally and publish it to your local filesystem:
 
     $ sbt publish-local
+
+## Authors
+
+Crafted by highly motivated engineers at http://koofr.net and, hopefully, making your day just a little bit better.
