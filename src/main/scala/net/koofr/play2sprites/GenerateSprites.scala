@@ -6,35 +6,38 @@ import java.io.IOException
 import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
 
-object GenerateSprites extends Plugin {
+case class SpriteInfo(file: File, width: Int, height: Int, offsetY: Int, cssClass: String)
+
+class GenerateSprites(prefix: String) extends Plugin {
+  val pfx = if (prefix.isEmpty) "" else prefix + "-"
 
   val spritesSrcImages = SettingKey[PathFinder](
-    "sprites-src-images",
+    pfx + "sprites-src-images",
     "source images for sprites"
   )
 
   val spritesDestImage = SettingKey[File](
-    "sprites-dest-image",
+    pfx + "sprites-dest-image",
     "destination sprite image file"
   )
 
   val spritesCssSpritePath = SettingKey[String](
-    "sprites-css-sprite-path",
+    pfx + "sprites-css-sprite-path",
     "path to sprite image relative to css file"
   )
 
   val spritesCssClassPrefix = SettingKey[String](
-    "sprites-css-class-prefix",
+    pfx + "sprites-css-class-prefix",
     "css class prefix"
   )
 
   val spritesDestCss = SettingKey[File](
-    "sprites-dest-css",
+    pfx + "sprites-dest-css",
     "destination css file"
   )
 
   val spritesGen = TaskKey[Seq[File]](
-    "sprites-gen",
+    pfx + "sprites-gen",
     "generate sprite from images"
   )
 
@@ -53,7 +56,7 @@ object GenerateSprites extends Plugin {
     ) map { (srcImages, destImage, relPath, cssClassPrefix, css, cache, s) =>
         val files = srcImages.get.sortBy(_.getName)
 
-        val cacheFile = cache / "sprites"
+        val cacheFile = cache / (pfx + "sprites")
         val currentInfos = files.map(f => f -> FileInfo.lastModified(f)).toMap
 
         val (previousRelation, previousInfo) = Sync.readInfo(cacheFile)(FileInfo.lastModified.format)
@@ -141,6 +144,6 @@ object GenerateSprites extends Plugin {
     files.map(_ -> destImage) ++ files.map(_ -> css)
   }
 
-  case class SpriteInfo(file: File, width: Int, height: Int, offsetY: Int, cssClass: String)
-
 }
+
+object GenerateSprites extends GenerateSprites("")
