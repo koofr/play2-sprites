@@ -8,8 +8,8 @@ object Play2SpritesPlugin extends Build {
   ).settings(
     name := "play2-sprites",
     organization := "net.koofr",
-    version := "0.2.0-SNAPSHOT",
+    version := "0.2.1-SNAPSHOT",
     sbtPlugin := true,
-    scalaVersion := "2.9.2"
+    scalaVersion := "2.10.2"
   )
 }
