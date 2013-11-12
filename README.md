@@ -22,7 +22,7 @@ Add following lines to your `project/plugins.sbt` file:
 
     resolvers += Resolver.url("Github repo", url("http://koofr.github.com/repo/releases/"))(Resolver.ivyStylePatterns)
 
-    addSbtPlugin("net.koofr" % "play2-sprites" % "0.1.0")
+    addSbtPlugin("net.koofr" % "play2-sprites" % "0.4.0")
 
 Add following import to your `Build.scala` file:
 
