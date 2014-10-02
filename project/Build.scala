@@ -11,7 +11,7 @@ object Play2SpritesPlugin extends Build {
   .settings(
     name := "play2-sprites",
     organization := "net.koofr",
-    version := "0.5.0",
+    version := "0.6.0",
     scalaVersion := "2.10.4",
     sbtPlugin := true,
     CrossBuilding.crossSbtVersions := Seq("0.12", "0.13"),
