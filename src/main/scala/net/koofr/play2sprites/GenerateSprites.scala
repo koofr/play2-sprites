@@ -31,6 +31,11 @@ class GenerateSprites(prefix: String) extends Plugin {
     "css class prefix"
   )
 
+  val spritesPadding = SettingKey[Int](
+    pfx + "sprites-padding",
+    "padding between images"
+  )
+
   val spritesDestCss = SettingKey[File](
     pfx + "sprites-dest-css",
     "destination css file"
@@ -45,15 +50,18 @@ class GenerateSprites(prefix: String) extends Plugin {
 
     spritesCssClassPrefix := "",
 
+    spritesPadding := 0,
+
     spritesGen <<= (
       spritesSrcImages,
       spritesDestImage,
       spritesCssSpritePath,
       spritesCssClassPrefix,
+      spritesPadding,
       spritesDestCss,
       cacheDirectory,
       streams
-    ) map { (srcImages, destImage, relPath, cssClassPrefix, css, cache, s) =>
+    ) map { (srcImages, destImage, relPath, cssClassPrefix, padding, css, cache, s) =>
         val files = srcImages.get.sortBy(_.getName)
 
         val cacheFile = cache / (pfx + "sprites")
@@ -62,7 +70,7 @@ class GenerateSprites(prefix: String) extends Plugin {
         val (previousRelation, previousInfo) = Sync.readInfo(cacheFile)(FileInfo.lastModified.format)
 
         if (!files.isEmpty && (previousInfo != currentInfos || !destImage.exists || !css.exists)) {
-          val generated = generateSprites(files, destImage, relPath, cssClassPrefix, css, s)
+          val generated = generateSprites(files, destImage, relPath, cssClassPrefix, padding, css, s)
 
           Sync.writeInfo(cacheFile,
             Relation.empty[File, File] ++ generated,
@@ -75,7 +83,7 @@ class GenerateSprites(prefix: String) extends Plugin {
   )
 
   def generateSprites(files: Seq[File], destImage: File, relPath: String,
-    cssClassPrefix: String, css: File, s: TaskStreams) = {
+    cssClassPrefix: String, padding: Int, css: File, s: TaskStreams) = {
 
     s.log.info("Generating sprites for %d images" format (files.length))
 
@@ -100,7 +108,9 @@ class GenerateSprites(prefix: String) extends Plugin {
     }
 
     val width = images.map(_._2.getWidth).max
-    val height = images.map(_._2.getHeight).sum
+    val imagesHeight = images.map(_._2.getHeight).sum
+    val imagesPadding = ((images.length - 1) max 0) * padding
+    val height = imagesHeight + imagesPadding
 
     val sprite = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB)
 
@@ -114,7 +124,7 @@ class GenerateSprites(prefix: String) extends Plugin {
 
         val info = SpriteInfo(file, img.getWidth, img.getHeight, y, cssClass)
 
-        (info :: processed, y + info.height)
+        (info :: processed, y + info.height + padding)
     }._1.reverse
 
     val written = ImageIO.write(sprite, "png", destImage)

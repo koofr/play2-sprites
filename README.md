@@ -69,6 +69,12 @@ You can also prefix CSS classes:
 
 Now sprite classes will be named as `.sprite-my-icon`.
 
+### Padding
+
+You can add more space between images:
+
+    spritesPadding := 50
+
 ## Sample
 
 Sample Play application is available in `sample` directory.

@@ -21,6 +21,8 @@ spritesCssSpritePath := "../images/sprites.png"
 
 spritesCssClassPrefix := ""
 
+spritesPadding := 50
+
 spritesDestCss <<= baseDirectory( (base: File) => base / "app/assets/stylesheets/_sprites.less" )
 
 resourceGenerators in Compile <<= (resourceGenerators in Compile, spritesGen) { (gens, spritesGen) =>
