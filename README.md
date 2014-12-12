@@ -20,7 +20,7 @@ http://play2-sprites-demo.herokuapp.com/assets/images/sprites.png
 
 Add following lines to your `project/plugins.sbt` file:
 
-    resolvers += Resolver.url("Github repo", url("http://koofr.github.com/repo/releases/"))(Resolver.ivyStylePatterns)
+    resolvers += "Koofr repo" at "http://koofr.github.com/repo/maven/"
 
     addSbtPlugin("net.koofr" % "play2-sprites" % "0.6.0")
 

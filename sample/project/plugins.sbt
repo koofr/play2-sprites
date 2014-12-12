@@ -9,6 +9,6 @@ addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.3.1")
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-less" % "1.0.0")
 
-resolvers += Resolver.url("Koofr repo", url("http://koofr.github.com/repo/releases/"))(Resolver.ivyStylePatterns)
+resolvers += "Koofr repo" at "http://koofr.github.com/repo/maven/"
 
 addSbtPlugin("net.koofr" % "play2-sprites" % "0.6.0")
