@@ -2,16 +2,19 @@ import sbt._
 import Keys._
 
 object Play2SpritesPlugin extends Build {
+  lazy val spritegen = file("spritegen")
+
   lazy val root = Project(
     id = "play2-sprites",
     base = file("."),
     settings = Defaults.defaultSettings
   )
+  .dependsOn(spritegen)
   .settings(net.virtualvoid.sbt.cross.CrossPlugin.crossBuildingSettings: _*)
   .settings(
     name := "play2-sprites",
     organization := "net.koofr",
-    version := "0.6.0",
+    version := "0.7.0",
     scalaVersion := "2.10.4",
     sbtPlugin := true,
     CrossBuilding.crossSbtVersions := Seq("0.12", "0.13"),

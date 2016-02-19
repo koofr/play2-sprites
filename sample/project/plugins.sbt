@@ -11,4 +11,4 @@ addSbtPlugin("com.typesafe.sbt" % "sbt-less" % "1.0.0")
 
 resolvers += Resolver.url("Koofr repo", url("http://koofr.github.com/repo/releases/"))(Resolver.ivyStylePatterns)
 
-addSbtPlugin("net.koofr" % "play2-sprites" % "0.6.0")
+addSbtPlugin("net.koofr" % "play2-sprites" % "0.7.0")
